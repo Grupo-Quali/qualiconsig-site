@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Qualiconsig - Portabilidade do INSS, empréstimos consignados com as melhores condições do mercado.">
+  <title>Qualiconsig - Portabilidade do INSS</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Configuração da API (troque a URL após o deploy no Fly.io) -->
+  <script>window.QUALICONSIG_API = 'http://localhost:3001/api';</script>
+</head>
+<body>
+
+<!-- ===== TOPBAR ===== -->
+<div class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <span><i class="fas fa-phone-alt"></i> <span data-phone>(00) 0000-0000</span></span>
+      <span><i class="fas fa-map-marker-alt"></i> <span data-address">Av. Antônio de Barros xxx</span></span>
+    </div>
+    <div class="topbar-right">
+      <button class="lang-btn">PT BR ▾</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="site-header">
+  <nav class="nav-inner">
+    <a href="index.html" class="site-logo">
+      <img src="images/logo.png" alt="Qualiconsig" id="site-logo-img">
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="empresa.html">Empresa</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="trabalhe-conosco.html">Trabalhe conosco</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+    <div class="nav-search-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Pesquisar..." aria-label="Pesquisar">
+    </div>
+  </nav>
+</header>
+
+<!-- ===== HERO SLIDER ===== -->
+<section class="hero-slider" aria-label="Banners principais">
+  <div id="slider-track">
+    <!-- Slide padrão (substituído pela API) -->
+    <div class="slide active">
+      <div class="slide-bg" style="background-image:url('images/banner1.jpg')"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <h1>Portabilidade<br>Do INSS</h1>
+        <p>Transfira Seu Empréstimo INSS Para A Qualiconsig Com Taxas Reduzidas, Prazos Maiores E Atendimento Humanizado. Mais Economia E Controle Para Sua Vida Financeira.</p>
+        <a href="#simulador" class="btn-primary">Saiba Mais <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('images/banner2.jpg')"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <h1>Empréstimo<br>Consignado</h1>
+        <p>As melhores condições do mercado para servidores públicos, aposentados e pensionistas do INSS.</p>
+        <a href="#simulador" class="btn-primary">Simule Agora <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('images/banner3.jpg')"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <h1>Cartão<br>Consignado</h1>
+        <p>Crédito com as melhores taxas, descontado direto no benefício. Rápido, seguro e sem burocracia.</p>
+        <a href="servicos.html" class="btn-primary">Conheça <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <button class="arrow arrow-left" id="arrow-prev" aria-label="Slide anterior">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <button class="arrow arrow-right" id="arrow-next" aria-label="Próximo slide">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+  <div class="slider-controls">
+    <div id="slider-dots">
+      <button class="dot active" aria-label="Slide 1"></button>
+      <button class="dot" aria-label="Slide 2"></button>
+      <button class="dot" aria-label="Slide 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CARDS PRINCIPAIS ===== -->
+<section class="cards-section">
+  <div class="cards-grid" id="cards-grid">
+    <!-- Padrão — substituído pela API -->
+    <div class="card-item">
+      <div class="card-icon-wrap"><i class="fas fa-calculator"></i></div>
+      <h3>Simule Seu Empréstimo:</h3>
+      <p>Descubra agora o valor disponível para você em uma conta com as melhores condições do mercado.</p>
+      <a href="#simulador" class="btn-outline">Saiba Mais <i class="fas fa-chevron-right"></i></a>
+    </div>
+    <div class="card-item">
+      <div class="card-icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+      <h3>Crie sua conta digital:</h3>
+      <p>Abra sua conta agora e plataforma em poucos minutos, sem burocracia e 100% digital.</p>
+      <a href="servicos.html" class="btn-outline">Saiba Mais <i class="fas fa-chevron-right"></i></a>
+    </div>
+    <div class="card-item">
+      <div class="card-icon-wrap"><i class="fas fa-headset"></i></div>
+      <h3>Fale com um consultor:</h3>
+      <p>Tire suas dúvidas com um especialista pronto para te atender de forma personalizada.</p>
+      <a href="contato.html" class="btn-outline">Saiba Mais <i class="fas fa-chevron-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POR QUE QUALICONSIG ===== -->
+<section class="why-section">
+  <h2 class="section-title">Por que escolher a <span>Qualiconsig?</span></h2>
+  <div class="why-grid" id="why-grid">
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+      <div>
+        <h4>Sem consulta ao SPC</h4>
+        <p>Fornece a você análise de crédito para você analizar.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-handshake"></i></div>
+      <div>
+        <h4>Limite de crédito pelas mesas</h4>
+        <p>Cartas e encontramos a solução ideal para sua necessidade.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-file-alt"></i></div>
+      <div>
+        <h4>Após o envio da documentação</h4>
+        <p>O valor cai na sua conta em até 48 horas.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-credit-card"></i></div>
+      <div>
+        <h4>Mais vantajoso que cartão de crédito</h4>
+        <p>Cheque especial e empréstimos pessoais.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-calendar-check"></i></div>
+      <div>
+        <h4>Parcelamento facilitado</h4>
+        <p>Para você pagar com mensalidade.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon"><i class="fas fa-chart-line"></i></div>
+      <div>
+        <h4>Planeje com segurança</h4>
+        <p>Ao visualizar parcelas e valores antes de fechar o empréstimo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUTROS SERVIÇOS ===== -->
+<section class="services-section">
+  <h2 class="section-title">Outros <span>Serviços</span></h2>
+  <div class="services-grid" id="services-grid">
+    <div class="service-card">
+      <img src="images/banner1.jpg" alt="Cartão Consignado">
+      <div class="service-label">Cartão Consignado</div>
+    </div>
+    <div class="service-card">
+      <img src="images/banner2.jpg" alt="Empréstimo Pessoal">
+      <div class="service-label">Empréstimo Pessoal</div>
+    </div>
+    <div class="service-card">
+      <img src="images/banner3.jpg" alt="Portabilidade Consignado">
+      <div class="service-label">Portabilidade Consignado</div>
+    </div>
+    <div class="service-card">
+      <img src="images/simulator-person.jpg" alt="Conta Digital">
+      <div class="service-label">Conta Digital</div>
+    </div>
+    <div class="service-card">
+      <img src="images/banner1.jpg" alt="Saque FGTS">
+      <div class="service-label">Saque FGTS</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SIMULADOR ===== -->
+<section class="simulator-section" id="simulador">
+  <div class="sim-inner">
+    <div class="sim-text">
+      <h2>Simulador de<em>EMPRÉSTIMO</em></h2>
+      <p>Simule seu empréstimo de forma rápida e sem compromisso. Descubra as melhores condições para o seu perfil com transparência e praticidade. Faça agora mesmo e veja como é fácil.</p>
+    </div>
+    <div class="sim-visual">
+      <img src="images/simulator-person.jpg" alt="Simulador de Empréstimo" class="sim-photo">
+      <div class="sim-box">
+        <h4>Simule o Seu Empréstimo</h4>
+        <input type="text" id="sim-cpf" placeholder="Informe seu CPF" maxlength="14" autocomplete="off">
+        <div class="sim-row">
+          <input type="tel" id="sim-celular" placeholder="Celular">
+          <button class="btn-sim btn-sim-solid" id="btn-simular">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEPOIMENTOS ===== -->
+<section class="testimonials-section">
+  <h2 class="section-title">O que dizem nossos <span>clientes</span></h2>
+  <div class="testimonial-wrap" id="testimonial-content">
+    <div class="stars">★★★★★</div>
+    <p class="testimonial-text">
+      Su recomendo a Qualiconsig por todo o suporte durante meu empréstimo, atendimento de primeira, rápido e simples, facilitou muito a minha vida.
+    </p>
+    <div class="testimonial-author">
+      <img src="images/foto-perfil.png" alt="José Larreal">
+      <div class="author-info">
+        <strong>José Larreal</strong>
+        <span>Cliente Qualiconsig</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG ===== -->
+<section class="blog-section">
+  <h2 class="section-title">Nosso <span>blog</span></h2>
+  <div class="blog-grid" id="blog-grid">
+    <!-- Substituído pela API -->
+    <div class="blog-card">
+      <div class="blog-img"><img src="images/banner1.jpg" alt="INSS amplia acesso"></div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-date">19 Out</span>
+          <span class="blog-cat">INSS</span>
+        </div>
+        <h3>INSS amplia acesso ao crédito consignado</h3>
+        <p>Novas regras permitem maior acesso a linhas de crédito para aposentados e pensionistas.</p>
+        <a href="blog.html" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><img src="images/banner2.jpg" alt="Vida real"></div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-date">11 Nov</span>
+          <span class="blog-cat">Finanças</span>
+        </div>
+        <h3>Antecipação do FGTS: o que você precisa saber</h3>
+        <p>Entenda como funciona a antecipação do saque-aniversário do FGTS.</p>
+        <a href="blog.html" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><img src="images/banner3.jpg" alt="Dicas financeiras"></div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-date">19 Dez</span>
+          <span class="blog-cat">Dicas</span>
+        </div>
+        <h3>Como usar o crédito consignado com consciência</h3>
+        <p>Dicas práticas para utilizar o empréstimo consignado de forma inteligente.</p>
+        <a href="blog.html" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <img src="images/logo.png" alt="Qualiconsig" class="footer-logo">
+      <p class="footer-desc">Soluções financeiras seguras, com mais transparência, taxas reduzidas e atendimento humanizado. Trabalhamos com agilidade, transparência e foco no que realmente importa: o seu bem-estar financeiro.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="empresa.html">Empresa</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="termos.html">Termos e Condições</a></li>
+        <li><a href="privacidade.html">Privacidade</a></li>
+        <li><a href="ouvidoria.html">Ouvidoria</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-contact">
+      <h4>Ouvidoria</h4>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:ouvidoria@qualiconsig.com.br" data-email>ouvidoria@qualiconsig.com.br</a></p>
+      <p><i class="fas fa-phone"></i> <span data-phone>(00) 0000-0000</span></p>
+      <p><i class="fas fa-map-marker-alt"></i> <span data-address>Av. Antônio de Barros, xxx</span></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="cnpj">© <span id="footer-year"></span> Qualiconsig © All Rights Reserved &nbsp;|&nbsp; <span data-cnpj>CNPJ: 27.713.314/0001-73</span></span>
+    <div>
+      <a href="termos.html">Termos e Condições</a>
+      <a href="privacidade.html">Privacidade Política</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
