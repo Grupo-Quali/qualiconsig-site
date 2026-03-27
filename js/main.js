@@ -76,13 +76,14 @@ function renderSlides(slides) {
   slides.forEach((s, i) => {
     const slide = document.createElement('div');
     slide.className = 'slide' + (i === 0 ? ' active' : '');
+    const isExternal = s.cta_url && s.cta_url.startsWith('http');
     slide.innerHTML = `
       <div class="slide-bg" style="background-image:url('${s.image_url}');background-position:${s.image_position || 'center center'}"></div>
       <div class="slide-overlay"></div>
       <div class="slide-content">
         <h1>${s.title}</h1>
         <p>${s.subtitle}</p>
-        <a href="${s.cta_url || '#'}" class="btn-primary">${s.cta_text || 'Saiba Mais'} <i class="fas fa-arrow-right"></i></a>
+        <a href="${s.cta_url || '#'}" class="btn-primary" ${isExternal ? 'target="_blank" rel="noopener"' : ''}>${s.cta_text || 'Saiba Mais'} <i class="fas fa-arrow-right"></i></a>
       </div>`;
     container.appendChild(slide);
     const dot = document.createElement('button');
