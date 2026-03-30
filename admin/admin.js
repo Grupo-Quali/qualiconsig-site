@@ -304,7 +304,22 @@ async function savePost() { const id=document.getElementById('p-id').value; cons
 async function deletePost(id) { if(!confirm('Excluir post?'))return; await sbDelete('posts',id); loadPosts(); }
 
 /* ===== SETTINGS ===== */
-async function loadSettings() { const data=await sbGet('site_settings','?id=eq.1&select=*'); if(!data?.[0])return; const s=data[0]; setColor('primary',s.color_primary||'#FFCB00'); setColor('secondary',s.color_secondary||'#136289'); setColor('dark',s.color_dark||'#001F64'); if(s.logo_height)document.getElementById('logo-height').value=s.logo_height; if(s.logo_url){const p=document.getElementById('logo-preview');p.src=s.logo_url;p.style.display='block';} }
+async function loadSettings() { 
+  const data = await sbGet('site_settings','?id=eq.1&select=*'); 
+  if(!data?.[0]) return; 
+  const s = data[0]; 
+  setColor('primary', s.color_primary||'#FFCB00'); 
+  setColor('secondary', s.color_secondary||'#136289'); 
+  setColor('dark', s.color_dark||'#001F64'); 
+  if(s.logo_height) document.getElementById('logo-height').value = s.logo_height; 
+  if(s.logo_url) {
+    // Aplica logo na sidebar e login do CMS
+    document.querySelectorAll('#cms-logo-img').forEach(img => { img.src = s.logo_url; });
+    // Preview na seção de settings
+    const p = document.getElementById('logo-preview'); 
+    if(p) { p.src = s.logo_url; p.style.display = 'block'; }
+  }
+}
 function setColor(name,hex) { document.getElementById(`color-${name}`).value=hex; document.getElementById(`color-${name}-hex`).value=hex; }
 async function saveSettings() { const logoFile=document.querySelector('#logo-upload input[type="file"]').files[0]; const simFile=document.querySelector('#sim-upload input[type="file"]')?.files[0]; const testFile=document.querySelector('#testimonial-upload input[type="file"]')?.files[0]; let logoUrl=null,simUrl=null,testUrl=null; if(logoFile)logoUrl=await sbUpload(logoFile,'logos'); if(simFile)simUrl=await sbUpload(simFile,'site'); if(testFile)testUrl=await sbUpload(testFile,'site'); const body={color_primary:document.getElementById('color-primary-hex').value,color_secondary:document.getElementById('color-secondary-hex').value,color_dark:document.getElementById('color-dark-hex').value,logo_height:parseInt(document.getElementById('logo-height').value)||44}; if(logoUrl)body.logo_url=logoUrl; if(simUrl)body.simulator_image_url=simUrl; if(testUrl)body.testimonial_image_url=testUrl; const res=await sbPatch('site_settings',1,body); if(res)toast('Configurações salvas!','success'); else toast('Erro ao salvar','error'); }
 function initColorPickers() { ['primary','secondary','dark'].forEach(name=>{ const picker=document.getElementById(`color-${name}`); const hexIn=document.getElementById(`color-${name}-hex`); if(!picker||!hexIn)return; picker.addEventListener('input',()=>hexIn.value=picker.value); hexIn.addEventListener('input',()=>{if(/^#[0-9A-Fa-f]{6}$/.test(hexIn.value))picker.value=hexIn.value;}); }); }
