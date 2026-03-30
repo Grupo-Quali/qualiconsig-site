@@ -1,1 +1,832 @@
 
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crédito Consignado CLT | Qualiconsig</title>
+<meta name="description" content="Crédito Consignado CLT com taxas mais baixas, desconto em folha via e-Social e contratação 100% online.">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    padding-top:76px;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fa;
+    color:#1f2933;
+    line-height:1.6;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+/* =====================
+   MENU MOBILE
+===================== */
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    color:#fff;
+    cursor:pointer;
+}
+
+@media(max-width:1024px){
+
+    .hero-grid,
+    .highlight-grid,
+    .steps,
+    .full-content,
+    .trust-grid{
+        grid-template-columns:1fr;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .top-nav{
+        position:absolute;
+        top:76px;
+        left:0;
+        width:100%;
+        background:#001F64;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+    }
+
+    .top-nav a{
+        margin:12px 0;
+        font-size:1rem;
+    }
+
+    .top-nav.active{
+        display:flex;
+    }
+}
+
+/* =====================
+   CTA MOBILE FIXO
+===================== */
+.mobile-cta{
+    display:none;
+}
+
+@media(max-width:768px){
+    .mobile-cta{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        width:100%;
+        padding:14px 16px;
+        background:#ffffff;
+        box-shadow:0 -8px 20px rgba(0,0,0,.15);
+        z-index:9999;
+    }
+
+    .mobile-cta button{
+        width:100%;
+        background:#25d366;
+        color:#fff;
+        border:none;
+        border-radius:12px;
+        padding:18px;
+        font-size:1.05rem;
+        font-weight:700;
+        cursor:pointer;
+    }
+}
+
+/* =====================
+   CTA FLUTUANTE
+===================== */
+.floating-cta{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:9998;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s, transform .4s;
+    transform:translateY(20px);
+}
+
+.floating-cta.show{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+}
+
+.floating-cta button{
+    background:#25d366;
+    color:#fff;
+    border:none;
+    border-radius:50px;
+    padding:18px 26px;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.floating-cta button:hover{
+    background:#1aa851;
+    transform:translateY(-2px);
+}
+
+/* Esconde no mobile (por enquanto) */
+@media(max-width:768px){
+    .floating-cta{display:none}
+}
+
+
+/* =====================
+   TOPO FIXO
+===================== */
+.top-bar{
+    background:#001F64;
+    padding:8px 0;
+    position:fixed;
+    top:0;left:0;width:100%;
+    z-index:9999;
+}
+.top-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.top-bar img{height:55px}
+.top-nav a{
+    color:#fff;
+    text-decoration:none;
+    margin-left:16px;
+    font-size:.8rem;
+    font-weight:500;
+    opacity:.9;
+}
+.top-nav a:hover{opacity:1;text-decoration:underline}
+
+footer p{
+    margin:8px 0 0;
+    line-height:1.6;
+}
+
+footer a{
+    color:#fff;
+    text-decoration:none;
+    opacity:.9;
+}
+
+footer a:hover{
+    opacity:1;
+    text-decoration:underline;
+}
+
+/* =====================
+   BOTÃO
+===================== */
+.btn{
+    background:#25d366;
+    color:#fff;
+    padding:16px 24px;
+    border-radius:10px;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    transition:.3s;
+}
+.btn:hover{background:#1aa851;transform:translateY(-2px)}
+
+/* =====================
+   HERO
+===================== */
+.hero{
+    min-height:100vh;
+    background:url('https://i.imgur.com/2IOmxcE.png') center/120% no-repeat;
+    position:relative;
+    display:flex;
+    align-items:center;
+    margin-top:-76px;
+    padding-top:76px;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.65);
+}
+.hero-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.4fr .6fr;
+    gap:50px;
+    color:#fff;
+}
+.hero h1{
+    font-size:2.8rem;
+    line-height:1.15;
+    margin-bottom:18px;
+}
+.hero p{
+    font-size:1.15rem;
+    color:#e5e7eb;
+}
+
+/* FORM */
+.hero-form{
+    background:#fff;
+    border-radius:28px;
+    padding:42px 30px;
+    box-shadow:0 20px 45px rgba(0,0,0,.3);
+}
+.hero-form h3{color:#001F64;margin-bottom:24px}
+.hero-form input{
+    width:100%;
+    padding:18px;
+    margin-bottom:18px;
+    border-radius:14px;
+    border:1px solid #cbd5e1;
+    font-size:1.05rem;
+}
+.hero-form small{
+    display:block;
+    margin-top:12px;
+    font-size:.85rem;
+    color:#64748b;
+    text-align:center;
+}
+.hero-form button{display:block;margin:18px auto 0}
+
+/* =====================
+   ANIMAÇÃO
+===================== */
+.reveal{opacity:0;transform:translateY(40px);transition:.8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* =====================
+   BENEFÍCIOS
+===================== */
+.highlights{background:#fff;padding:80px 0}
+.highlight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.highlight{
+    background:#f0f4ff;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.35s;
+}
+.highlight:hover{transform:translateY(-10px)}
+.highlight img{width:100%;height:190px;object-fit:cover}
+.highlight-content{text-align:center;padding:22px}
+.highlight-content strong{display:block;color:#001F64;margin-bottom:8px}
+
+/* =====================
+   SEÇÕES PADRÃO
+===================== */
+.section{padding:110px 0}
+.section.gray{background:#f0f4f8}
+.section h2{color:#001F64;margin-bottom:40px}
+
+/* =====================
+   COMO FUNCIONA
+===================== */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:26px}
+.step{
+    background:#fff;
+    border-radius:20px;
+    min-height:260px;
+    padding:36px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    transition:.35s;
+}
+.step:hover{background:#001F64;color:#fff;transform:translateY(-8px)}
+.step-number{
+    width:54px;height:54px;
+    margin-bottom:18px;
+    border-radius:50%;
+    background:#001F64;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+.step:hover .step-number{background:#fff;color:#001F64}
+
+/* =====================
+   O QUE É / QUEM PODE
+===================== */
+.full-section{
+    background:url('https://i.imgur.com/pTUXm3c.png') center/cover no-repeat;
+    position:relative;
+    padding:140px 0;
+}
+.full-section::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,31,100,.75);
+}
+.full-content{
+    position:relative;
+    z-index:2;
+    color:#fff;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+}
+.full-content p{line-height:1.7}
+
+/* =====================
+   POR QUE CONFIAR
+===================== */
+#confiar{
+    width:100%;
+    background:#f5f7fa;
+    padding:140px 0;
+}
+.trust-text{
+    max-width:900px;
+    margin-bottom:60px;
+    line-height:1.7;
+}
+.trust-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+.trust{
+    background:#e2e8f0;
+    padding:36px;
+    border-radius:20px;
+    min-height:220px;
+    transition:.3s;
+}
+.trust:hover{transform:translateY(-8px)}
+.trust strong{
+    display:block;
+    margin-bottom:14px;
+    font-size:1.05rem;
+    color:#001F64;
+}
+.trust p{margin:0;line-height:1.55}
+
+/* =====================
+   FAQ
+===================== */
+.faq-section{
+    background:#001F64;
+    padding:120px 0;
+}
+.faq-wrap{max-width:900px}
+.faq-item{
+    background:#fff;
+    border-radius:18px;
+    margin-bottom:20px;
+}
+.faq-question{
+    padding:22px;
+    font-weight:700;
+    cursor:pointer;
+    color:#001F64;
+    position:relative;
+}
+.faq-question::after{
+    content:"+";
+    position:absolute;
+    right:22px;
+    font-size:1.4rem;
+}
+.faq-item.active .faq-question::after{content:"–"}
+.faq-answer{padding:0 22px 22px;display:none}
+.faq-item.active .faq-answer{display:block}
+
+/* =====================
+   CTA FINAL – LEITURA CORRIGIDA
+===================== */
+.final-cta{
+    background:url('https://i.imgur.com/rR4FJJW.png') center/cover no-repeat;
+    position:relative;
+    padding:160px 0;
+}
+.final-cta::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,31,100,.75); /* overlay forte p/ leitura */
+}
+.final-cta .container{
+    position:relative;
+    z-index:2;
+}
+.final-cta .content{
+    max-width:620px;
+    color:#fff;
+}
+.final-cta h2{margin-bottom:18px}
+.final-cta p{margin-bottom:26px;color:#e5e7eb}
+
+/* =====================
+   FOOTER
+===================== */
+footer{
+    background:#001F64;
+    color:#fff;
+    padding:70px 0;
+}
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:36px;
+}
+
+@media(max-width:768px){
+    body{
+        padding-bottom:90px;
+    }
+}
+
+/* =====================
+   RESPONSIVO
+===================== */
+@media(max-width:1024px){
+    .hero-grid,
+    .highlight-grid,
+    .steps,
+    .full-content,
+    .trust-grid{
+        grid-template-columns:1fr;
+    }
+    .top-nav{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOPO -->
+<div class="top-bar">
+  <div class="container top-inner">
+    <img src="https://i.imgur.com/3DZiODG.png">
+    <div class="menu-toggle" id="menuToggle">☰</div>
+<nav class="top-nav" id="mobileMenu">
+      <a href="#hero">Home</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#como">Como Funciona</a>
+      <a href="#quem">Quem Pode Contratar</a>
+      <a href="#confiar">Por que Confiar</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contratar Agora</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero reveal" id="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>Crédito Consignado CLT </br>com taxas mais baixas </br>e liberação facilitada</h1>
+      <p>Agora você pode contratar seu empréstimo diretamente, </br>sem depender de convênios, 
+tudo via CTPS Digital e </br>Qualiconsig com taxas competitivas e prazos de até 36 meses.</p>
+    </div>
+    <form class="hero-form">
+      <h3>Faça sua simulação</h3>
+      <input type="text" placeholder="Nome completo">
+      <input type="text" placeholder="CPF">
+      <input type="email" placeholder="E-mail">
+      <button class="btn">Contrate agora</button>
+      <small>• 100% Online • Sem Compromisso</br> • Dados Protegidos</small>
+    </form>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="highlights reveal" id="beneficios">
+  <div class="container highlight-grid">
+    <div class="highlight"><img src="https://i.imgur.com/WNJ1qIh.jpeg"><div class="highlight-content"><strong>SEM CONVÊNIO COM A EMPRESA</strong>Você contrata direto, com liberdade total.</div></div>
+    <div class="highlight"><img src="https://i.imgur.com/KcEHP1A.jpeg"><div class="highlight-content"><strong>DESCONTO EM FOLHA VIA E-SOCIAL</strong>Segurança e previsibilidade nas parcelas.</div></div>
+    <div class="highlight"><img src="https://i.imgur.com/N2GZV0V.jpeg"><div class="highlight-content"><strong>PROCESSO 100% ONLINE</strong>Simule, autorize e receba sem sair de casa.</div></div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section gray reveal" id="como">
+  <div class="container">
+    <h2>Como funciona</h2>
+    <div class="steps">
+      <div class="step"><div class="step-number">1</div>Simule o valor desejado</div>
+      <div class="step"><div class="step-number">2</div>Escolha a melhor condição</div>
+      <div class="step"><div class="step-number">3</div>Autorize na CTPS Digital</div>
+      <div class="step"><div class="step-number">4</div>Assine digitalmente</div>
+      <div class="step"><div class="step-number">5</div>Receba o dinheiro</div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE É / QUEM PODE -->
+<section class="full-section reveal" id="quem">
+  <div class="container full-content">
+    <div>
+      <h2>O que é Crédito Consignado CLT</h2>
+      <p>O <strong>Crédito Consignado CLT</strong> é uma modalidade de empréstimo destinada a trabalhadores com <strong>carteira assinada</strong>, em que as parcelas são <strong>descontadas diretamente do salário</strong>, de forma automática e segura.
+Esse modelo reduz o risco da operação, permitindo acesso a <strong>taxas de juros mais baixas</strong> quando comparado a empréstimos pessoais tradicionais.
+A contratação é <strong>simples e 100% digital</strong>, com análise facilitada, <strong>parcelas fixas</strong> e maior previsibilidade financeira ao longo de todo o contrato.</p>
+        </div>
+    <div>
+      <h2>Quem pode contratar</h2>
+      <p>Podem contratar o <strong>Crédito Consignado CLT</strong> trabalhadores com <strong>vínculo CLT ativo</strong> e <strong>margem consignável disponível</strong> para o desconto das parcelas em folha.
+A contratação é feita <strong>diretamente pelo trabalhador</strong>, sem necessidade de convênio com a empresa ou envolvimento do RH.
+Todo o processo acontece de forma <strong>rápida, segura e 100% online</strong>, com autorização digital pela <strong>CTPS Digital</strong> e pelo <strong>GOV.BR</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE CONFIAR -->
+<section class="section reveal" id="confiar">
+  <div class="container">
+
+  <h2>Por que confiar na Qualiconsig</h2>
+
+<div class="trust-text">
+  A <strong>Qualiconsig</strong> é uma empresa <strong>correspondente bancária</strong> e fintech
+  especializada em soluções de crédito, com <strong>atuação nacional</strong> e parceria com
+  <strong>instituições financeiras reconhecidas pelo mercado</strong>.
+  Nosso compromisso é oferecer acesso ao crédito de forma
+  <strong>segura, responsável e transparente</strong>, sempre com foco na melhor experiência para o cliente.
+  <br><br>
+  Atuamos em modalidades como <strong>Crédito Consignado</strong>, <strong>Cartão de Crédito Consignado</strong>,
+  <strong>Conta Digital</strong>, <strong>Empréstimo Pessoal</strong> e
+  <strong>Antecipação de FGTS</strong>, utilizando tecnologia e conhecimento de mercado
+  para simplificar processos e reduzir burocracias.
+  <br><br>
+  Combinamos <strong>inovação, conformidade regulatória e processos 100% digitais</strong>
+  para garantir uma contratação clara, previsível e confiável.
+  Além disso, acreditamos em <strong>atendimento humanizado</strong>:
+  nosso time acompanha você do início à liberação do crédito, oferecendo suporte real em todas as etapas.
+</div>
+
+<div class="trust-grid">
+  <div class="trust">
+    <strong>🔹 Especialistas em Crédito Consignado</strong>
+    <p>
+      Atuação focada em crédito consignado, com domínio das regras, margens e melhores condições
+      para cada perfil de cliente.
+    </p>
+  </div>
+
+  <div class="trust">
+    <strong>🔹 Segurança, Transparência e Conformidade</strong>
+    <p>
+      Processos claros, dados protegidos e atuação como correspondente bancário,
+      em parceria com instituições financeiras sólidas e reconhecidas.
+    </p>
+  </div>
+
+  <div class="trust">
+    <strong>🔹 Atendimento Humano e Próximo</strong>
+    <p>
+      Acompanhamento em todas as etapas, com suporte especializado para esclarecer dúvidas
+      e orientar decisões com segurança.
+    </p>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section reveal" id="faq">
+  <div class="container faq-wrap">
+    <h2 style="color:#fff">Perguntas Frequentes</h2>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Posso contratar o empréstimo mesmo se minha empresa não tem convênio com banco?
+  </div>
+  <div class="faq-answer">
+    <strong>Sim.</strong> Essa é uma das principais vantagens do Crédito Consignado CLT. 
+    A contratação é feita <strong>diretamente pelo trabalhador</strong>, sem necessidade de convênio com a empresa 
+    ou envolvimento do RH. Todo o processo acontece de forma <strong>digital e segura</strong> pelo app da 
+    <strong>CTPS Digital</strong>.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Como autorizo a consignação no eSocial?
+  </div>
+  <div class="faq-answer">
+    Após a simulação, você será direcionado para o app da <strong>Carteira de Trabalho Digital (CTPS)</strong> 
+    ou para o <strong>GOV.BR</strong>. Basta conferir as informações e <strong>autorizar a consignação</strong> 
+    de forma simples e segura, sem burocracia.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    E se eu mudar de emprego ou for desligado?
+  </div>
+  <div class="faq-answer">
+    <strong>Não se preocupe.</strong> Caso ocorra mudança de emprego ou desligamento, o valor restante pode ser 
+    <strong>ajustado conforme as regras do eSocial</strong>, incluindo desconto em folha de rescisão ou outros 
+    mecanismos previstos em lei, sempre respeitando sua situação atual.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Quantos empréstimos posso ter ao mesmo tempo?
+  </div>
+  <div class="faq-answer">
+    É permitido <strong>um empréstimo por vínculo CLT</strong>, sempre respeitando o <strong>limite da margem consignável</strong>. 
+    Isso garante que o valor das parcelas não comprometa excessivamente sua renda mensal.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">
+    Quando recebo o dinheiro?
+  </div>
+  <div class="faq-answer">
+    Após a <strong>aprovação da proposta</strong>, a <strong>autorização da consignação</strong> pelo app da CTPS Digital 
+    e a <strong>assinatura do contrato</strong>, o valor é liberado <strong>diretamente na sua conta bancária</strong>. 
+    Na maioria dos casos, o crédito é disponibilizado em <strong>poucos dias úteis</strong>, podendo variar conforme a instituição financeira.
+  </div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final-cta reveal" id="contato">
+  <div class="container">
+    <div class="content">
+      <h2>Contrate agora seu Crédito Consignado CLT </br>com mais segurança e controle financeiro
+</h2>
+      <p>SO Crédito Consignado CLT é a alternativa ideal para quem </br>busca taxas de juros mais baixas, parcelas previsíveis </br>e contratação sem burocracia.</p>
+      <button class="btn">Contrate agora</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-grid">
+
+    <div>
+      <strong>Contato</strong>
+      <p>
+        0800 888 5842<br>
+        SAC: (11) 3164-8020<br>
+        <a href="mailto:ouvidoria@qualiconsig.com.br">ouvidoria@qualiconsig.com.br</a>
+      </p>
+    </div>
+
+    <div>
+      <strong>Escreva para nós</strong>
+      <p>
+        <a href="mailto:contato@qualiconsig.com.br">contato@qualiconsig.com.br</a>
+      </p>
+      <p>
+        <strong>CNPJ:</strong><br>
+        27.733.374/0001-72
+      </p>
+    </div>
+
+    <div>
+      <strong>Redes sociais</strong>
+      <p>
+        <a href="https://www.facebook.com/grupoqualiconsig" target="_blank">Facebook</a><br>
+        <a href="https://www.instagram.com/qualiconsig/" target="_blank">Instagram</a><br>
+        <a href="https://www.linkedin.com/company/grupoqualiconsig/" target="_blank">LinkedIn</a><br>
+        <a href="https://www.youtube.com/@Qualiconsig" target="_blank">YouTube</a>
+      </p>
+    </div>
+
+    <div>
+      <strong>Segurança & LGPD</strong>
+      <p>
+        LGPD<br>
+        Certificação
+      </p>
+      <p>
+        <a href="https://qualiconsig.com.br/politica-de-privacidade/" target="_blank">
+          Política de Privacidade / LGPD
+        </a>
+      </p>
+    </div>
+
+  </div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* =====================
+     FAQ (ABRE / FECHA)
+  ===================== */
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      q.parentElement.classList.toggle('active');
+    });
+  });
+
+  /* =====================
+     ANIMAÇÕES DE SCROLL
+  ===================== */
+  const reveals = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+  } else {
+    /* Fallback para celulares antigos */
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+
+  /* =====================
+     CTA FLUTUANTE (DESKTOP)
+  ===================== */
+  const floatingCta = document.getElementById('floatingCta');
+  const heroSection = document.getElementById('hero');
+
+  if (floatingCta && heroSection) {
+    window.addEventListener('scroll', () => {
+      const heroBottom = heroSection.offsetHeight;
+      if (window.scrollY > heroBottom - 200) {
+        floatingCta.classList.add('show');
+      } else {
+        floatingCta.classList.remove('show');
+      }
+    });
+  }
+
+  /* =====================
+     SCROLL SUAVE ATÉ FORM
+  ===================== */
+  window.scrollToForm = function () {
+    const form = document.querySelector('.hero-form');
+    if (form) {
+      form.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
+  /* =====================
+     MENU MOBILE (HAMBURGER)
+  ===================== */
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    /* Fecha menu ao clicar em qualquer link */
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+  }
+
+});
+</script>
+<!-- CTA MOBILE -->
+<div class="mobile-cta">
+  <button onclick="scrollToForm()">
+    Contratar agora
+  </button>
+</div>
+
+
+<!-- CTA FLUTUANTE -->
+<div class="floating-cta" id="floatingCta">
+  <button onclick="scrollToForm()">
+    Contratar agora
+  </button>
+</div>
+
+</body>
+</html>
+
