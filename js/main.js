@@ -117,12 +117,15 @@ function goToSlide(index) {
 function renderCards(cards) {
   const grid = document.getElementById('cards-grid');
   if (!grid) return;
-  grid.innerHTML = cards.map(c => `
+  grid.innerHTML = cards.map(c => {
+    const isExternal = c.link_url && c.link_url.startsWith('http');
+    return `
     <div class="card-item">
       <div class="card-icon-wrap">${c.icon_url ? `<img src="${c.icon_url}" style="width:36px;height:36px;object-fit:contain">` : `<i class="${c.icon_class||'fas fa-star'}"></i>`}</div>
       <h3>${c.title}</h3><p>${c.description}</p>
-      <a href="${c.link_url||'#'}" class="btn-outline">${c.link_text||'Saiba Mais'} <i class="fas fa-chevron-right"></i></a>
-    </div>`).join('');
+      <a href="${c.link_url||'#'}" class="btn-outline" ${isExternal ? 'target="_blank" rel="noopener"' : ''}>${c.link_text||'Saiba Mais'} <i class="fas fa-chevron-right"></i></a>
+    </div>`;
+  }).join('');
 }
 
 function renderWhyItems(items) {
@@ -138,25 +141,33 @@ function renderWhyItems(items) {
 function renderServices(services) {
   const grid = document.getElementById('services-grid');
   if (!grid) return;
-  grid.innerHTML = services.map(s => `
-    <div class="service-card">
+  grid.innerHTML = services.map(s => {
+    const isExternal = s.link_url && s.link_url.startsWith('http');
+    const tag = s.link_url ? `a href="${s.link_url}" ${isExternal ? 'target="_blank" rel="noopener"' : ''}` : 'div';
+    const closeTag = s.link_url ? 'a' : 'div';
+    return `
+    <${tag} class="service-card" style="text-decoration:none">
       <img src="${s.image_url}" alt="${s.name}" onerror="this.style.opacity='0.3'">
       <div class="service-label">${s.name}</div>
-    </div>`).join('');
+    </${closeTag}>`;
+  }).join('');
 }
 
 function renderPosts(posts) {
   const grid = document.getElementById('blog-grid');
   if (!grid) return;
-  grid.innerHTML = posts.map(p => `
+  grid.innerHTML = posts.map(p => {
+    const postUrl = p.slug ? `blog/${p.slug}.html` : '#';
+    return `
     <div class="blog-card">
       <div class="blog-img"><img src="${p.image_url||'images/banner1.jpg'}" alt="${p.title}"></div>
       <div class="blog-body">
         <div class="blog-meta"><span class="blog-date">${formatDate(p.published_at)}</span><span class="blog-cat">${p.category||'Noticia'}</span></div>
         <h3>${p.title}</h3><p>${p.excerpt||''}</p>
-        <a href="blog/${p.slug}" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+        <a href="${postUrl}" class="blog-link">Ler mais <i class="fas fa-arrow-right"></i></a>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function initContactForm() {

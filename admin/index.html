@@ -80,6 +80,9 @@
         <button class="nav-item" data-section="texts">
           <i class="fas fa-font"></i> Textos e Rodapé
         </button>
+        <button class="nav-item" data-section="cms_appearance">
+          <i class="fas fa-sliders-h"></i> Aparência do Painel
+        </button>
       </div>
       <div class="nav-group">
         <div class="nav-group-title">CRM</div>
@@ -362,6 +365,77 @@
         </div>
       </section>
 
+
+      <!-- ===== APARÊNCIA DO PAINEL CMS ===== -->
+      <section class="cms-section" id="sec-cms_appearance">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-sliders-h"></i> Aparência do Painel Administrativo</div>
+          </div>
+          <div class="panel-body">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Logotipo do Painel</h4>
+            <div class="form-grid">
+              <div class="field">
+                <label>Upload do Logo do CMS</label>
+                <div class="img-upload-area" id="cms-logo-upload">
+                  <input type="file" accept="image/*" onchange="previewImage(this,'cms-logo-preview')">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Arraste ou <strong>clique para selecionar</strong></p>
+                  <img id="cms-logo-preview" class="img-preview" style="display:none">
+                </div>
+                <div class="img-disclaimer">
+                  <i class="fas fa-info-circle"></i>
+                  <span><strong>Tamanho recomendado: 200 × 50px</strong> (PNG com fundo transparente, versão clara para fundo escuro). Solicite ao time de criação neste formato.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Altura do Logo do CMS (px)</label>
+                <input type="number" id="cms-logo-height" value="38" min="20" max="80" placeholder="38">
+                <p style="font-size:11px;color:#94a3b8;margin-top:6px">Padrão: 38px. Ajuste conforme necessário.</p>
+              </div>
+            </div>
+            <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Cores do Painel</h4>
+            <div class="form-grid cols-3">
+              <div class="field">
+                <label>Cor da Sidebar</label>
+                <div class="color-field">
+                  <input type="color" id="cms-sidebar-color" value="#001F64">
+                  <input type="text" id="cms-sidebar-color-hex" value="#001F64" maxlength="7">
+                </div>
+              </div>
+              <div class="field">
+                <label>Cor de Destaque (itens ativos)</label>
+                <div class="color-field">
+                  <input type="color" id="cms-accent-color" value="#136289">
+                  <input type="text" id="cms-accent-color-hex" value="#136289" maxlength="7">
+                </div>
+              </div>
+            </div>
+            <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Tipografia do Painel</h4>
+            <div class="form-grid">
+              <div class="field">
+                <label>Fonte do Painel</label>
+                <select id="cms-font-select">
+                  <option value="Inter">Inter (padrão)</option>
+                  <option value="Montserrat">Montserrat</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Lato">Lato</option>
+                  <option value="Poppins">Poppins</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-success" onclick="saveCmsAppearance()">
+                <i class="fas fa-save"></i> Salvar Aparência do Painel
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ===== CONTATOS ===== -->
       <section class="cms-section" id="sec-contacts">
         <div class="panel">
@@ -444,6 +518,13 @@
         </div>
       </div>
 
+      <!-- CONTROLE DE ZOOM -->
+      <div class="field">
+        <label>Zoom da Imagem: <span id="b-img-zoom-val">100%</span></label>
+        <input type="range" id="b-img-zoom" min="50" max="200" value="100" style="width:100%"
+          oninput="document.getElementById('b-img-zoom-val').textContent=this.value+'%';updateBannerPreview()">
+      </div>
+
       <!-- CONTROLE DE POSIÇÃO -->
       <div class="field">
         <label>Posição do Foco da Imagem</label>
@@ -484,6 +565,40 @@
           </div>
         </div>
         <p style="font-size:11px;color:#94a3b8;margin-top:6px">⬆ Preview em tempo real. Ajuste a posição usando os botões acima.</p>
+      </div>
+
+      <!-- TIPOGRAFIA DO BANNER -->
+      <div class="field">
+        <label>Tipografia do Título</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Tamanho (px)</label>
+            <input type="number" id="b-title-size" value="44" min="16" max="80" oninput="updateBannerPreview()">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Cor do Título</label>
+            <div class="color-field">
+              <input type="color" id="b-title-color" value="#ffffff" oninput="document.getElementById('b-title-color-hex').value=this.value;updateBannerPreview()">
+              <input type="text" id="b-title-color-hex" value="#ffffff" maxlength="7" oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){document.getElementById('b-title-color').value=this.value;updateBannerPreview();}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Tipografia do Subtítulo</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Tamanho (px)</label>
+            <input type="number" id="b-subtitle-size" value="15" min="10" max="30" oninput="updateBannerPreview()">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Cor do Subtítulo</label>
+            <div class="color-field">
+              <input type="color" id="b-subtitle-color" value="#ffffff" oninput="document.getElementById('b-subtitle-color-hex').value=this.value;updateBannerPreview()">
+              <input type="text" id="b-subtitle-color-hex" value="#ffffff" maxlength="7" oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){document.getElementById('b-subtitle-color').value=this.value;updateBannerPreview();}">
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="field">
