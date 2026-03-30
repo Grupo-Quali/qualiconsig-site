@@ -1,0 +1,9 @@
+# ===== NUNCA SOBE PARA O GITHUB =====
+backend/.env
+backend/node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Mantenha o .env.example (sem valores reais)
+!backend/.env.example

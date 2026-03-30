@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qualiconsig CMS - Painel Administrativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+  <script>window.QUALICONSIG_API = 'https://qualiconsig-api.fly.dev/api';</script>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-page" class="login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <img id="cms-logo-img" src="https://unvnqtrylofckskjuupn.supabase.co/storage/v1/object/public/qualiconsig/logos/logo-qualiconsig-site-1.png" alt="Qualiconsig" style="height:38px;width:auto">
+    </div>
+    <h2 class="login-title">Painel Administrativo</h2>
+    <p class="login-sub">Entre com suas credenciais para acessar o CMS</p>
+    <div class="login-error" id="login-error">E-mail ou senha inválidos.</div>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com.br" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-login" id="btn-login">
+      <span id="login-btn-text">Entrar</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== CMS APP ===== -->
+<div id="cms-app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img id="cms-logo-img" src="https://unvnqtrylofckskjuupn.supabase.co/storage/v1/object/public/qualiconsig/logos/logo-qualiconsig-site-1.png" alt="Qualiconsig" style="height:38px;width:auto">
+    </div>
+    <div class="sidebar-user">
+      <strong id="user-name">Admin</strong>
+      <span id="user-email">b.massa@qualigrupo.com.br</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Geral</div>
+        <button class="nav-item active" data-section="dashboard">
+          <i class="fas fa-th-large"></i> Dashboard
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Conteúdo</div>
+        <button class="nav-item" data-section="banners">
+          <i class="fas fa-images"></i> Banners / Slider
+        </button>
+        <button class="nav-item" data-section="cards">
+          <i class="fas fa-clone"></i> Cards Principais
+        </button>
+        <button class="nav-item" data-section="why">
+          <i class="fas fa-list-check"></i> Por que Qualiconsig
+        </button>
+        <button class="nav-item" data-section="services">
+          <i class="fas fa-th"></i> Outros Serviços
+        </button>
+        <button class="nav-item" data-section="blog">
+          <i class="fas fa-newspaper"></i> Blog
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">Site</div>
+        <button class="nav-item" data-section="settings">
+          <i class="fas fa-palette"></i> Cores e Identidade
+        </button>
+        <button class="nav-item" data-section="texts">
+          <i class="fas fa-font"></i> Textos e Rodapé
+        </button>
+        <button class="nav-item" data-section="cms_appearance">
+          <i class="fas fa-sliders-h"></i> Aparência do Painel
+        </button>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">CRM</div>
+        <button class="nav-item" data-section="contacts">
+          <i class="fas fa-envelope"></i> Contatos Recebidos
+        </button>
+        <button class="nav-item" data-section="users">
+          <i class="fas fa-users"></i> Usuários do CMS
+        </button>
+      </div>
+    </nav>
+    <div class="sidebar-logout">
+      <button class="btn-logout" id="btn-logout">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="cms-main">
+    <div class="cms-topbar">
+      <h1 id="section-title"><i class="fas fa-th-large"></i> Dashboard</h1>
+      <div class="topbar-actions">
+        <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm">
+          <i class="fas fa-external-link-alt"></i> Ver Site
+        </a>
+      </div>
+    </div>
+
+    <div class="cms-content">
+
+      <!-- ===== DASHBOARD ===== -->
+      <section class="cms-section active" id="sec-dashboard">
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fas fa-images"></i></div>
+            <div><div class="stat-value" id="stat-banners">0</div><div class="stat-label">Banners ativos</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon teal"><i class="fas fa-newspaper"></i></div>
+            <div><div class="stat-value" id="stat-posts">0</div><div class="stat-label">Posts publicados</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fas fa-envelope"></i></div>
+            <div><div class="stat-value" id="stat-contacts">0</div><div class="stat-label">Contatos recebidos</div></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon yellow"><i class="fas fa-users"></i></div>
+            <div><div class="stat-value" id="stat-users">0</div><div class="stat-label">Usuários do CMS</div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-clock"></i> Últimos Contatos</div>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('contacts')">Ver todos</button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="dash-contacts-table">
+              <thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Data</th><th>Status</th></tr></thead>
+              <tbody id="dash-contacts-body"><tr><td colspan="5" style="text-align:center;padding:24px;color:#94a3b8">Carregando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BANNERS ===== -->
+      <section class="cms-section" id="sec-banners">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-sort"></i> Ordem dos Banners (arraste para reordenar)</div>
+            <button class="btn btn-primary btn-sm" onclick="openBannerModal()">
+              <i class="fas fa-plus"></i> Novo Banner
+            </button>
+          </div>
+          <div class="panel-body">
+            <ul class="order-list" id="banners-order-list"></ul>
+            <div style="margin-top:14px">
+              <button class="btn btn-success" onclick="saveBannerOrder()">
+                <i class="fas fa-save"></i> Salvar Ordem
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CARDS ===== -->
+      <section class="cms-section" id="sec-cards">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-clone"></i> Cards Principais</div>
+            <button class="btn btn-primary btn-sm" onclick="openCardModal()">
+              <i class="fas fa-plus"></i> Novo Card
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="cards-table">
+              <thead><tr><th>Ícone</th><th>Título</th><th>Texto do Botão</th><th>Link</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody id="cards-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== POR QUE QUALICONSIG ===== -->
+      <section class="cms-section" id="sec-why">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-list-check"></i> Itens - Por que Qualiconsig</div>
+            <button class="btn btn-primary btn-sm" onclick="openWhyModal()">
+              <i class="fas fa-plus"></i> Novo Item
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="why-table">
+              <thead><tr><th>Ícone</th><th>Título</th><th>Descrição</th><th>Ações</th></tr></thead>
+              <tbody id="why-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SERVIÇOS ===== -->
+      <section class="cms-section" id="sec-services">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-th"></i> Outros Serviços</div>
+            <button class="btn btn-primary btn-sm" onclick="openServiceModal()">
+              <i class="fas fa-plus"></i> Novo Serviço
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="services-table">
+              <thead><tr><th>Imagem</th><th>Nome</th><th>Link</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody id="services-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BLOG ===== -->
+      <section class="cms-section" id="sec-blog">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-newspaper"></i> Posts do Blog</div>
+            <button class="btn btn-primary btn-sm" onclick="openPostModal()">
+              <i class="fas fa-plus"></i> Novo Post
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="posts-table">
+              <thead><tr><th>Imagem</th><th>Título</th><th>Categoria</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody id="posts-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CORES E IDENTIDADE ===== -->
+      <section class="cms-section" id="sec-settings">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-palette"></i> Cores e Identidade Visual</div>
+          </div>
+          <div class="panel-body">
+            <div class="form-grid">
+              <div class="field">
+                <label>Cor Primária (Amarelo)</label>
+                <div class="color-field">
+                  <input type="color" id="color-primary" value="#FFCB00">
+                  <input type="text" id="color-primary-hex" value="#FFCB00" maxlength="7">
+                </div>
+              </div>
+              <div class="field">
+                <label>Cor Secundária (Teal)</label>
+                <div class="color-field">
+                  <input type="color" id="color-secondary" value="#136289">
+                  <input type="text" id="color-secondary-hex" value="#136289" maxlength="7">
+                </div>
+              </div>
+              <div class="field">
+                <label>Cor Escura (Navy)</label>
+                <div class="color-field">
+                  <input type="color" id="color-dark" value="#001F64">
+                  <input type="text" id="color-dark-hex" value="#001F64" maxlength="7">
+                </div>
+              </div>
+            </div>
+            <hr style="margin:24px 0; border:none; border-top:1px solid #e2e8f0">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Logotipo</h4>
+            <div class="form-grid">
+              <div class="field">
+                <label>Upload do Logotipo</label>
+                <div class="img-upload-area" id="logo-upload">
+                  <input type="file" accept="image/*" onchange="previewImage(this,'logo-preview')">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Arraste ou <strong>clique para selecionar</strong></p>
+                  <img id="logo-preview" class="img-preview" style="display:none">
+                </div>
+                <div class="img-disclaimer">
+                  <i class="fas fa-info-circle"></i>
+                  <span><strong>Tamanho recomendado: 300 × 80px</strong> (PNG transparente). Solicite ao time de criação neste formato para garantir qualidade em todos os dispositivos.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Altura do Logotipo no Header (px)</label>
+                <input type="number" id="logo-height" value="44" min="20" max="100" placeholder="44">
+                <p style="font-size:11px;color:#94a3b8;margin-top:6px">Valor atual: 44px. Altere apenas se necessário.</p>
+              </div>
+              <div class="field">
+                <label>Imagem do Simulador (pessoa)</label>
+                <div class="img-upload-area" id="sim-upload">
+                  <input type="file" accept="image/*" onchange="previewImage(this,'sim-preview')">
+                  <i class="fas fa-user"></i>
+                  <p>Arraste ou <strong>clique para selecionar</strong></p>
+                  <img id="sim-preview" class="img-preview" style="display:none">
+                </div>
+                <div class="img-disclaimer">
+                  <i class="fas fa-info-circle"></i>
+                  <span><strong>Tamanho recomendado: 500 × 600px</strong> (retrato, PNG ou JPG). Pessoa centralizada com fundo neutro. Solicite ao time de criação neste formato.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Foto do Depoimento</label>
+                <div class="img-upload-area" id="testimonial-upload">
+                  <input type="file" accept="image/*" onchange="previewImage(this,'testimonial-preview')">
+                  <i class="fas fa-user-circle"></i>
+                  <p>Arraste ou <strong>clique para selecionar</strong></p>
+                  <img id="testimonial-preview" class="img-preview" style="display:none">
+                </div>
+                <div class="img-disclaimer">
+                  <i class="fas fa-info-circle"></i>
+                  <span><strong>Tamanho recomendado: 100 × 100px</strong> (quadrado, rosto centralizado). Solicite ao time de criação neste formato.</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-success" onclick="saveSettings()">
+                <i class="fas fa-save"></i> Salvar Configurações
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TEXTOS E RODAPÉ ===== -->
+      <section class="cms-section" id="sec-texts">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-font"></i> Textos Globais e Rodapé</div>
+          </div>
+          <div class="panel-body">
+            <div class="form-grid">
+              <div class="field">
+                <label>Telefone de Contato</label>
+                <input type="text" id="txt-phone" placeholder="(11) 0000-0000">
+              </div>
+              <div class="field">
+                <label>E-mail</label>
+                <input type="email" id="txt-email" placeholder="contato@qualiconsig.com.br">
+              </div>
+              <div class="field col-span-2">
+                <label>Endereço</label>
+                <input type="text" id="txt-address" placeholder="Av. Antônio de Barros, xxx">
+              </div>
+              <div class="field">
+                <label>CNPJ</label>
+                <input type="text" id="txt-cnpj" placeholder="00.000.000/0001-00">
+              </div>
+              <div class="field col-span-2">
+                <label>Texto do Rodapé (descrição da empresa)</label>
+                <textarea id="txt-footer-desc" rows="4" placeholder="Descrição curta da empresa para o rodapé..."></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-success" onclick="saveTexts()">
+                <i class="fas fa-save"></i> Salvar Textos
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===== APARÊNCIA DO PAINEL CMS ===== -->
+      <section class="cms-section" id="sec-cms_appearance">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-sliders-h"></i> Aparência do Painel Administrativo</div>
+          </div>
+          <div class="panel-body">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Logotipo do Painel</h4>
+            <div class="form-grid">
+              <div class="field">
+                <label>Upload do Logo do CMS</label>
+                <div class="img-upload-area" id="cms-logo-upload">
+                  <input type="file" accept="image/*" onchange="previewImage(this,'cms-logo-preview')">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Arraste ou <strong>clique para selecionar</strong></p>
+                  <img id="cms-logo-preview" class="img-preview" style="display:none">
+                </div>
+                <div class="img-disclaimer">
+                  <i class="fas fa-info-circle"></i>
+                  <span><strong>Tamanho recomendado: 200 × 50px</strong> (PNG com fundo transparente, versão clara para fundo escuro). Solicite ao time de criação neste formato.</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Altura do Logo do CMS (px)</label>
+                <input type="number" id="cms-logo-height" value="38" min="20" max="80" placeholder="38">
+                <p style="font-size:11px;color:#94a3b8;margin-top:6px">Padrão: 38px. Ajuste conforme necessário.</p>
+              </div>
+            </div>
+            <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Cores do Painel</h4>
+            <div class="form-grid cols-3">
+              <div class="field">
+                <label>Cor da Sidebar</label>
+                <div class="color-field">
+                  <input type="color" id="cms-sidebar-color" value="#001F64">
+                  <input type="text" id="cms-sidebar-color-hex" value="#001F64" maxlength="7">
+                </div>
+              </div>
+              <div class="field">
+                <label>Cor de Destaque (itens ativos)</label>
+                <div class="color-field">
+                  <input type="color" id="cms-accent-color" value="#136289">
+                  <input type="text" id="cms-accent-color-hex" value="#136289" maxlength="7">
+                </div>
+              </div>
+            </div>
+            <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+            <h4 style="font-size:14px;font-weight:700;color:#001F64;margin-bottom:16px">Tipografia do Painel</h4>
+            <div class="form-grid">
+              <div class="field">
+                <label>Fonte do Painel</label>
+                <select id="cms-font-select">
+                  <option value="Inter">Inter (padrão)</option>
+                  <option value="Montserrat">Montserrat</option>
+                  <option value="Roboto">Roboto</option>
+                  <option value="Open Sans">Open Sans</option>
+                  <option value="Lato">Lato</option>
+                  <option value="Poppins">Poppins</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-success" onclick="saveCmsAppearance()">
+                <i class="fas fa-save"></i> Salvar Aparência do Painel
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTATOS ===== -->
+      <section class="cms-section" id="sec-contacts">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-envelope"></i> Contatos Recebidos</div>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="contacts-table">
+              <thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Mensagem</th><th>Data</th><th>Status</th><th>Ação</th></tr></thead>
+              <tbody id="contacts-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== USUÁRIOS ===== -->
+      <section class="cms-section" id="sec-users">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title"><i class="fas fa-users"></i> Usuários do CMS</div>
+            <button class="btn btn-primary btn-sm" onclick="openUserModal()">
+              <i class="fas fa-plus"></i> Novo Usuário
+            </button>
+          </div>
+          <div class="panel-body" style="padding:0">
+            <table class="data-table" id="users-table">
+              <thead><tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th>Status</th><th>Ações</th></tr></thead>
+              <tbody id="users-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cms-content -->
+  </main>
+</div><!-- /cms-app -->
+
+<!-- ===== MODAIS ===== -->
+
+<!-- Modal Banner -->
+<div class="modal-overlay" id="modal-banner">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="banner-modal-title">Novo Banner</h3>
+      <button class="modal-close" onclick="closeModal('modal-banner')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Título do Banner</label>
+        <input type="text" id="b-title" placeholder="Ex: Portabilidade Do INSS" oninput="updateBannerPreview()">
+      </div>
+      <div class="field">
+        <label>Subtítulo / Texto</label>
+        <textarea id="b-subtitle" rows="3" placeholder="Texto descritivo do banner..." oninput="updateBannerPreview()"></textarea>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Texto do Botão</label>
+          <input type="text" id="b-cta-text" placeholder="Saiba Mais">
+        </div>
+        <div class="field">
+          <label>Link do Botão (URL)</label>
+          <input type="text" id="b-cta-url" placeholder="#simulador">
+        </div>
+      </div>
+      <div class="field">
+        <label>Imagem do Banner</label>
+        <div class="img-upload-area">
+          <input type="file" accept="image/*" onchange="bannerImageChanged(this)">
+          <i class="fas fa-image"></i>
+          <p>Arraste ou <strong>clique para selecionar</strong></p>
+        </div>
+        <div class="img-disclaimer">
+          <i class="fas fa-info-circle"></i>
+          <span><strong>Tamanho recomendado: 1440 × 500px</strong> (JPG ou PNG). Solicite ao time de criação neste formato.</span>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <label>Ou informe a URL da imagem</label>
+          <input type="text" id="b-img-url" placeholder="https://..." oninput="updateBannerPreview()">
+        </div>
+      </div>
+
+      <!-- CONTROLE DE ZOOM -->
+      <div class="field">
+        <label>Zoom da Imagem: <span id="b-img-zoom-val">100%</span></label>
+        <input type="range" id="b-img-zoom" min="50" max="200" value="100" style="width:100%"
+          oninput="document.getElementById('b-img-zoom-val').textContent=this.value+'%';updateBannerPreview()">
+      </div>
+
+      <!-- CONTROLE DE POSIÇÃO -->
+      <div class="field">
+        <label>Posição do Foco da Imagem</label>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px">
+          <button type="button" class="pos-btn" data-pos="left top"     onclick="setPos(this)">↖ Topo Esq</button>
+          <button type="button" class="pos-btn" data-pos="center top"   onclick="setPos(this)">↑ Topo</button>
+          <button type="button" class="pos-btn" data-pos="right top"    onclick="setPos(this)">↗ Topo Dir</button>
+          <button type="button" class="pos-btn" data-pos="left center"  onclick="setPos(this)">← Esquerda</button>
+          <button type="button" class="pos-btn active" data-pos="center center" onclick="setPos(this)">● Centro</button>
+          <button type="button" class="pos-btn" data-pos="right center" onclick="setPos(this)">→ Direita</button>
+          <button type="button" class="pos-btn" data-pos="left bottom"  onclick="setPos(this)">↙ Base Esq</button>
+          <button type="button" class="pos-btn" data-pos="center bottom" onclick="setPos(this)">↓ Base</button>
+          <button type="button" class="pos-btn" data-pos="right bottom" onclick="setPos(this)">↘ Base Dir</button>
+        </div>
+        <input type="hidden" id="b-img-position" value="center center">
+      </div>
+
+      <!-- PREVIEW AO VIVO -->
+      <div class="field">
+        <label>Preview do Banner</label>
+        <div id="banner-preview-box" style="
+          width:100%; height:180px;
+          border-radius:10px; overflow:hidden;
+          background:#1e293b; position:relative;
+          border:2px dashed #e2e8f0;
+          display:flex; align-items:center;
+        ">
+          <div id="banner-preview-bg" style="
+            position:absolute; inset:0;
+            background-size:cover;
+            background-position:center center;
+            transition: background-position 0.3s;
+          "></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,31,100,0.75),rgba(0,31,100,0.2))"></div>
+          <div style="position:relative;z-index:2;padding:20px;color:white">
+            <div id="prev-title" style="font-size:18px;font-weight:800;font-family:Montserrat,sans-serif">Título do Banner</div>
+            <div id="prev-subtitle" style="font-size:12px;opacity:0.85;margin-top:6px;max-width:280px">Subtítulo do banner aparece aqui</div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:#94a3b8;margin-top:6px">⬆ Preview em tempo real. Ajuste a posição usando os botões acima.</p>
+      </div>
+
+      <!-- TIPOGRAFIA DO BANNER -->
+      <div class="field">
+        <label>Tipografia do Título</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Tamanho (px)</label>
+            <input type="number" id="b-title-size" value="44" min="16" max="80" oninput="updateBannerPreview()">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Cor do Título</label>
+            <div class="color-field">
+              <input type="color" id="b-title-color" value="#ffffff" oninput="document.getElementById('b-title-color-hex').value=this.value;updateBannerPreview()">
+              <input type="text" id="b-title-color-hex" value="#ffffff" maxlength="7" oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){document.getElementById('b-title-color').value=this.value;updateBannerPreview();}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Tipografia do Subtítulo</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Tamanho (px)</label>
+            <input type="number" id="b-subtitle-size" value="15" min="10" max="30" oninput="updateBannerPreview()">
+          </div>
+          <div>
+            <label style="font-size:11px;color:#94a3b8">Cor do Subtítulo</label>
+            <div class="color-field">
+              <input type="color" id="b-subtitle-color" value="#ffffff" oninput="document.getElementById('b-subtitle-color-hex').value=this.value;updateBannerPreview()">
+              <input type="text" id="b-subtitle-color-hex" value="#ffffff" maxlength="7" oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){document.getElementById('b-subtitle-color').value=this.value;updateBannerPreview();}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Status</label>
+        <div class="toggle-wrap">
+          <button class="toggle on" id="b-active" onclick="this.classList.toggle('on')"></button>
+          <span class="toggle-label">Banner ativo</span>
+        </div>
+      </div>
+      <input type="hidden" id="b-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-banner')">Cancelar</button>
+      <button class="btn btn-success" onclick="saveBanner()"><i class="fas fa-save"></i> Salvar Banner</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Card -->
+<div class="modal-overlay" id="modal-card">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="card-modal-title">Novo Card</h3>
+      <button class="modal-close" onclick="closeModal('modal-card')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Título</label>
+          <input type="text" id="c-title" placeholder="Ex: Simule Seu Empréstimo">
+        </div>
+        <div class="field">
+          <label>Classe do Ícone (Font Awesome)</label>
+          <input type="text" id="c-icon" placeholder="fas fa-calculator">
+        </div>
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="c-desc" rows="3" placeholder="Texto descritivo do card..."></textarea>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Texto do Botão</label>
+          <input type="text" id="c-btn-text" placeholder="Saiba Mais">
+        </div>
+        <div class="field">
+          <label>Link do Botão</label>
+          <input type="text" id="c-link" placeholder="#simulador">
+        </div>
+      </div>
+      <input type="hidden" id="c-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-card')">Cancelar</button>
+      <button class="btn btn-success" onclick="saveCard()"><i class="fas fa-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Why Item -->
+<div class="modal-overlay" id="modal-why">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Item - Por que Qualiconsig</h3>
+      <button class="modal-close" onclick="closeModal('modal-why')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Título</label>
+          <input type="text" id="w-title" placeholder="Ex: Sem consulta ao SPC">
+        </div>
+        <div class="field">
+          <label>Ícone (Font Awesome)</label>
+          <input type="text" id="w-icon" placeholder="fas fa-check-circle">
+        </div>
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="w-desc" rows="3"></textarea>
+      </div>
+      <input type="hidden" id="w-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-why')">Cancelar</button>
+      <button class="btn btn-success" onclick="saveWhyItem()"><i class="fas fa-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Serviço -->
+<div class="modal-overlay" id="modal-service">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="service-modal-title">Novo Serviço</h3>
+      <button class="modal-close" onclick="closeModal('modal-service')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Nome do Serviço</label>
+          <input type="text" id="s-name" placeholder="Ex: Cartão Consignado">
+        </div>
+        <div class="field">
+          <label>Link (URL)</label>
+          <input type="text" id="s-link" placeholder="/servicos/cartao">
+        </div>
+      </div>
+      <div class="field">
+        <label>Imagem</label>
+        <div class="img-upload-area">
+          <input type="file" accept="image/*" onchange="previewImage(this,'s-img-preview')">
+          <i class="fas fa-image"></i>
+          <p>Arraste ou <strong>clique</strong></p>
+          <img id="s-img-preview" class="img-preview" style="display:none">
+        </div>
+        <div class="img-disclaimer">
+          <i class="fas fa-info-circle"></i>
+          <span><strong>Tamanho recomendado: 200 × 200px</strong> (quadrado, JPG ou PNG). Solicite ao time de criação neste formato.</span>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <label>Ou informe URL da imagem</label>
+          <input type="text" id="s-img-url" placeholder="https://...">
+        </div>
+      </div>
+      <input type="hidden" id="s-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-service')">Cancelar</button>
+      <button class="btn btn-success" onclick="saveService()"><i class="fas fa-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Post Blog -->
+<div class="modal-overlay" id="modal-post">
+  <div class="modal" style="width:700px">
+    <div class="modal-header">
+      <h3 id="post-modal-title">Novo Post</h3>
+      <button class="modal-close" onclick="closeModal('modal-post')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Título do Post</label>
+        <input type="text" id="p-title" placeholder="Título do artigo...">
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Categoria</label>
+          <select id="p-category">
+            <option>INSS</option>
+            <option>Finanças</option>
+            <option>Dicas</option>
+            <option>Notícia</option>
+            <option>Empresa</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Data de Publicação</label>
+          <input type="date" id="p-date">
+        </div>
+      </div>
+      <div class="field">
+        <label>Resumo (exibido na listagem)</label>
+        <textarea id="p-excerpt" rows="3" placeholder="Breve resumo do post..."></textarea>
+      </div>
+      <div class="field">
+        <label>Conteúdo Completo</label>
+        <textarea id="p-content" rows="8" placeholder="Conteúdo completo do artigo..."></textarea>
+      </div>
+      <div class="field">
+        <label>Imagem de Capa</label>
+        <div class="img-upload-area">
+          <input type="file" accept="image/*" onchange="previewImage(this,'p-img-preview')">
+          <i class="fas fa-image"></i>
+          <p>Arraste ou <strong>clique</strong></p>
+          <img id="p-img-preview" class="img-preview" style="display:none">
+        </div>
+        <div class="img-disclaimer">
+          <i class="fas fa-info-circle"></i>
+          <span><strong>Tamanho recomendado: 800 × 450px</strong> (proporção 16:9, JPG ou PNG). Solicite ao time de criação neste formato.</span>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <label>Ou URL da imagem</label>
+          <input type="text" id="p-img-url" placeholder="https://...">
+        </div>
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="p-status">
+          <option value="published">Publicado</option>
+          <option value="draft">Rascunho</option>
+        </select>
+      </div>
+      <input type="hidden" id="p-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-post')">Cancelar</button>
+      <button class="btn btn-success" onclick="savePost()"><i class="fas fa-save"></i> Publicar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Usuário -->
+<div class="modal-overlay" id="modal-user">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="user-modal-title">Novo Usuário</h3>
+      <button class="modal-close" onclick="closeModal('modal-user')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>Nome</label>
+          <input type="text" id="u-name" placeholder="Nome completo">
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="u-email" placeholder="email@empresa.com.br">
+        </div>
+        <div class="field">
+          <label>Senha (mínimo 8 caracteres)</label>
+          <input type="password" id="u-pass" placeholder="Nova senha">
+        </div>
+        <div class="field">
+          <label>Perfil de Acesso</label>
+          <select id="u-role">
+            <option value="admin">Administrador (acesso total)</option>
+            <option value="editor">Editor (conteúdo apenas)</option>
+            <option value="viewer">Visualizador (somente leitura)</option>
+          </select>
+        </div>
+      </div>
+      <input type="hidden" id="u-id">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-user')">Cancelar</button>
+      <button class="btn btn-success" onclick="saveUser()"><i class="fas fa-save"></i> Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Contato Detalhe -->
+<div class="modal-overlay" id="modal-contact-detail">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Detalhe do Contato</h3>
+      <button class="modal-close" onclick="closeModal('modal-contact-detail')">&times;</button>
+    </div>
+    <div class="modal-body" id="contact-detail-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-contact-detail')">Fechar</button>
+      <button class="btn btn-success" onclick="markContactRead()"><i class="fas fa-check"></i> Marcar como lido</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

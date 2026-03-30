@@ -1,0 +1,28 @@
+# fly.toml — configuração do deploy no Fly.io
+# Gerado para o projeto qualiconsig-api
+
+app = "qualiconsig-api"
+primary_region = "gru"   # São Paulo — região mais próxima
+
+[build]
+  # Usa o Dockerfile ou buildpacks automaticamente
+
+[env]
+  PORT = "3001"
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3001
+  force_https   = true
+  auto_stop_machines  = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type       = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
