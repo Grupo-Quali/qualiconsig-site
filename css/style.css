@@ -632,7 +632,7 @@ input, textarea, select { font-family:var(--font-body); }
   gap: 40px;
   margin-bottom: 40px;
 }
-.footer-logo { height: 40px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+.footer-logo { height: 130px; margin-bottom: 16px; filter: brightness(0) invert(1); }
 .footer-desc { font-size: 13px; line-height: 1.65; margin-bottom: 20px; max-width: 260px; }
 .footer-social { display:flex; gap:8px; }
 .footer-social a {
